@@ -1,18 +1,59 @@
 package com.broft.adapterexample;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
-
+    ListView peopleListView;
+    PersonListAdapter personListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        peopleListView = (ListView) findViewById(R.id.lv_main);
+        ArrayList<Bundle> peopleList = new ArrayList<>();
+
+        peopleList.add(personBundle("kevin","000","master"));
+        peopleList.add(personBundle("daniel","001","grand"));
+        peopleList.add(personBundle("jk","002","beginner"));
+        peopleList.add(personBundle("sj","003","senior"));
+        peopleList.add(personBundle("ryan","004","melong"));
+
+        personListAdapter = new PersonListAdapter(this, R.layout.list_person, peopleList);
+
+        peopleListView.setAdapter(personListAdapter);
+
     }
+
+    private Bundle personBundle(String name, String phone, String stat) {
+        Bundle person = new Bundle();
+        person.putString("name", name);
+        person.putString("phone", phone);
+        person.putString("stat", stat);
+        return person;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
